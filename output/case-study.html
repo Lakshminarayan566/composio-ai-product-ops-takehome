@@ -1,0 +1,2842 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>AI Product Ops — 100 App Research</title>
+
+<style>
+:root {
+    --bg: #f6f7f9;
+    --card: #ffffff;
+    --text: #111827;
+    --muted: #667085;
+    --border: #e4e7ec;
+    --dark: #182230;
+    --accent: #7f56d9;
+    --accent2: #6941c6;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family:
+        Inter,
+        ui-sans-serif,
+        system-ui,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        sans-serif;
+    background: var(--bg);
+    color: var(--text);
+}
+
+.container {
+    max-width: 1400px;
+    margin: auto;
+    padding: 32px 28px 80px;
+}
+
+.hero {
+    background: var(--dark);
+    color: white;
+    padding: 46px;
+    border-radius: 24px;
+    margin-bottom: 24px;
+}
+
+.kicker {
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: .12em;
+    opacity: .7;
+    margin-bottom: 12px;
+}
+
+h1 {
+    font-size: 46px;
+    line-height: 1.05;
+    margin: 0 0 16px;
+}
+
+.hero p {
+    max-width: 860px;
+    font-size: 18px;
+    line-height: 1.6;
+    color: #d0d5dd;
+    margin: 0;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns:
+        repeat(auto-fit, minmax(190px, 1fr));
+    gap: 16px;
+    margin-bottom: 24px;
+}
+
+.card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    padding: 22px;
+}
+
+.metric {
+    font-size: 34px;
+    font-weight: 800;
+}
+
+.metric-label {
+    color: var(--muted);
+    margin-top: 4px;
+}
+
+.section {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 22px;
+    padding: 28px;
+    margin-bottom: 24px;
+}
+
+h2 {
+    margin-top: 0;
+    font-size: 27px;
+}
+
+h3 {
+    margin-top: 28px;
+}
+
+.muted {
+    color: var(--muted);
+    line-height: 1.6;
+}
+
+.insight-grid {
+    display: grid;
+    grid-template-columns:
+        repeat(auto-fit, minmax(250px, 1fr));
+    gap: 16px;
+}
+
+.insight {
+    background: #f9fafb;
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 18px;
+}
+
+.insight strong {
+    display: block;
+    font-size: 20px;
+    margin-bottom: 7px;
+}
+
+.bar-row {
+    display: grid;
+    grid-template-columns: 240px 1fr 70px;
+    gap: 12px;
+    align-items: center;
+    margin: 11px 0;
+}
+
+.bar-label {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+}
+
+.bar-track {
+    height: 10px;
+    background: #eaecf0;
+    border-radius: 999px;
+    overflow: hidden;
+}
+
+.bar-fill {
+    height: 100%;
+    background: var(--accent);
+    border-radius: 999px;
+}
+
+.bar-pct {
+    text-align: right;
+    color: var(--muted);
+}
+
+.workflow {
+    display: grid;
+    grid-template-columns:
+        repeat(auto-fit, minmax(150px, 1fr));
+    gap: 10px;
+    align-items: center;
+}
+
+.step {
+    border: 1px solid var(--border);
+    padding: 18px;
+    border-radius: 14px;
+    background: #fafafa;
+    text-align: center;
+    font-weight: 700;
+}
+
+.arrow {
+    text-align: center;
+    color: var(--muted);
+    font-size: 22px;
+}
+
+.controls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 16px;
+}
+
+input, select {
+    padding: 11px 13px;
+    border-radius: 10px;
+    border: 1px solid var(--border);
+    background: white;
+    font-size: 14px;
+}
+
+.table-wrap {
+    overflow-x: auto;
+    border: 1px solid var(--border);
+    border-radius: 14px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 1200px;
+}
+
+th, td {
+    padding: 12px 13px;
+    border-bottom: 1px solid var(--border);
+    text-align: left;
+    vertical-align: top;
+    font-size: 13px;
+}
+
+th {
+    background: #f9fafb;
+    position: sticky;
+    top: 0;
+    z-index: 2;
+}
+
+a {
+    color: var(--accent2);
+    text-decoration: none;
+    font-weight: 700;
+}
+
+.mini-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    padding: 11px 0;
+    border-bottom: 1px solid var(--border);
+}
+
+.verify-box {
+    background: #fff8ed;
+    border: 1px solid #fedf89;
+    border-radius: 16px;
+    padding: 18px;
+}
+
+footer {
+    color: var(--muted);
+    text-align: center;
+    font-size: 13px;
+    padding-top: 10px;
+}
+
+@media (max-width: 800px) {
+    .hero {
+        padding: 30px;
+    }
+
+    h1 {
+        font-size: 35px;
+    }
+
+    .bar-row {
+        grid-template-columns: 1fr;
+    }
+
+    .bar-pct {
+        text-align: left;
+    }
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<section class="hero">
+    <div class="kicker">AI Product Ops Take-home</div>
+    <h1>100-app API & Agent-Buildability Research</h1>
+    <p>
+        An automated research pipeline that evaluates authentication,
+        credential access, API surface, MCP availability and practical
+        agent-toolkit buildability across 100 applications.
+    </p>
+</section>
+
+
+<section class="grid">
+
+    <div class="card">
+        <div class="metric">100</div>
+        <div class="metric-label">Apps researched</div>
+    </div>
+
+    <div class="card">
+        <div class="metric">63</div>
+        <div class="metric-label">Agent-classified easy wins</div>
+    </div>
+
+    <div class="card">
+        <div class="metric">14</div>
+        <div class="metric-label">Agent-classified high-friction / outreach</div>
+    </div>
+
+    <div class="card">
+        <div class="metric">19</div>
+        <div class="metric-label">Document-verified</div>
+    </div>
+
+    <div class="card">
+        <div class="metric">1</div>
+        <div class="metric-label">Unresolved</div>
+    </div>
+
+</section>
+
+
+<section class="section">
+
+<h2>Headline findings</h2>
+
+<div class="insight-grid">
+
+    <div class="insight">
+        <strong>
+            73/100
+            (73.0%)
+        </strong>
+        classified as directly buildable.
+    </div>
+
+    <div class="insight">
+        <strong>
+            12/100
+            (12.0%)
+        </strong>
+        classified as partially buildable.
+    </div>
+
+    <div class="insight">
+        <strong>
+            67/100
+            (67.0%)
+        </strong>
+        have self-serve credential access.
+    </div>
+
+    <div class="insight">
+        <strong>
+            50/100
+            (50.0%)
+        </strong>
+        are marked as having MCP support.
+    </div>
+
+</div>
+
+<p class="muted">
+These are agent-generated classifications from the 100-app research
+dataset. Only the explicitly verified sample is treated as
+document-verified.
+</p>
+
+</section>
+
+
+<section class="section">
+
+<h2>Pattern analysis</h2>
+
+<h3>Authentication</h3>
+
+
+            <div class="bar-row">
+                <div class="bar-label">
+                    <span>OAuth2</span>
+                    <strong>21</strong>
+                </div>
+                <div class="bar-track">
+                    <div class="bar-fill" style="width:21.0%"></div>
+                </div>
+                <div class="bar-pct">21.0%</div>
+            </div>
+            
+            <div class="bar-row">
+                <div class="bar-label">
+                    <span>Unknown</span>
+                    <strong>20</strong>
+                </div>
+                <div class="bar-track">
+                    <div class="bar-fill" style="width:20.0%"></div>
+                </div>
+                <div class="bar-pct">20.0%</div>
+            </div>
+            
+            <div class="bar-row">
+                <div class="bar-label">
+                    <span>token</span>
+                    <strong>16</strong>
+                </div>
+                <div class="bar-track">
+                    <div class="bar-fill" style="width:16.0%"></div>
+                </div>
+                <div class="bar-pct">16.0%</div>
+            </div>
+            
+            <div class="bar-row">
+                <div class="bar-label">
+                    <span>API key</span>
+                    <strong>15</strong>
+                </div>
+                <div class="bar-track">
+                    <div class="bar-fill" style="width:15.0%"></div>
+                </div>
+                <div class="bar-pct">15.0%</div>
+            </div>
+            
+            <div class="bar-row">
+                <div class="bar-label">
+                    <span>OAuth2, token</span>
+                    <strong>8</strong>
+                </div>
+                <div class="bar-track">
+                    <div class="bar-fill" style="width:8.0%"></div>
+                </div>
+                <div class="bar-pct">8.0%</div>
+            </div>
+            
+            <div class="bar-row">
+                <div class="bar-label">
+                    <span>OAuth2, API key</span>
+                    <strong>5</strong>
+                </div>
+                <div class="bar-track">
+                    <div class="bar-fill" style="width:5.0%"></div>
+                </div>
+                <div class="bar-pct">5.0%</div>
+            </div>
+            
+            <div class="bar-row">
+                <div class="bar-label">
+                    <span>Basic</span>
+                    <strong>4</strong>
+                </div>
+                <div class="bar-track">
+                    <div class="bar-fill" style="width:4.0%"></div>
+                </div>
+                <div class="bar-pct">4.0%</div>
+            </div>
+            
+            <div class="bar-row">
+                <div class="bar-label">
+                    <span>API key, OAuth2</span>
+                    <strong>3</strong>
+                </div>
+                <div class="bar-track">
+                    <div class="bar-fill" style="width:3.0%"></div>
+                </div>
+                <div class="bar-pct">3.0%</div>
+            </div>
+            
+            <div class="bar-row">
+                <div class="bar-label">
+                    <span>OAuth2, API key, Basic, bearer</span>
+                    <strong>1</strong>
+                </div>
+                <div class="bar-track">
+                    <div class="bar-fill" style="width:1.0%"></div>
+                </div>
+                <div class="bar-pct">1.0%</div>
+            </div>
+            
+            <div class="bar-row">
+                <div class="bar-label">
+                    <span>OAuth2, API key, token</span>
+                    <strong>1</strong>
+                </div>
+                <div class="bar-track">
+                    <div class="bar-fill" style="width:1.0%"></div>
+                </div>
+                <div class="bar-pct">1.0%</div>
+            </div>
+            
+            <div class="bar-row">
+                <div class="bar-label">
+                    <span>OAuth2, API key, password, magic link, OTP, social login, SSO</span>
+                    <strong>1</strong>
+                </div>
+                <div class="bar-track">
+                    <div class="bar-fill" style="width:1.0%"></div>
+                </div>
+                <div class="bar-pct">1.0%</div>
+            </div>
+            
+            <div class="bar-row">
+                <div class="bar-label">
+                    <span>API key, application key</span>
+                    <strong>1</strong>
+                </div>
+                <div class="bar-track">
+                    <div class="bar-fill" style="width:1.0%"></div>
+                </div>
+                <div class="bar-pct">1.0%</div>
+            </div>
+            
+            <div class="bar-row">
+                <div class="bar-label">
+                    <span>Basic, API key</span>
+                    <strong>1</strong>
+                </div>
+                <div class="bar-track">
+                    <div class="bar-fill" style="width:1.0%"></div>
+                </div>
+                <div class="bar-pct">1.0%</div>
+            </div>
+            
+            <div class="bar-row">
+                <div class="bar-label">
+                    <span>OAuth2, API token</span>
+                    <strong>1</strong>
+                </div>
+                <div class="bar-track">
+                    <div class="bar-fill" style="width:1.0%"></div>
+                </div>
+                <div class="bar-pct">1.0%</div>
+            </div>
+            
+            <div class="bar-row">
+                <div class="bar-label">
+                    <span>OAuth2/token</span>
+                    <strong>1</strong>
+                </div>
+                <div class="bar-track">
+                    <div class="bar-fill" style="width:1.0%"></div>
+                </div>
+                <div class="bar-pct">1.0%</div>
+            </div>
+            
+            <div class="bar-row">
+                <div class="bar-label">
+                    <span>API key/token</span>
+                    <strong>1</strong>
+                </div>
+                <div class="bar-track">
+                    <div class="bar-fill" style="width:1.0%"></div>
+                </div>
+                <div class="bar-pct">1.0%</div>
+            </div>
+            
+
+<h3>Credential access</h3>
+
+
+            <div class="bar-row">
+                <div class="bar-label">
+                    <span>Self-serve</span>
+                    <strong>67</strong>
+                </div>
+                <div class="bar-track">
+                    <div class="bar-fill" style="width:67.0%"></div>
+                </div>
+                <div class="bar-pct">67.0%</div>
+            </div>
+            
+            <div class="bar-row">
+                <div class="bar-label">
+                    <span>Unknown</span>
+                    <strong>24</strong>
+                </div>
+                <div class="bar-track">
+                    <div class="bar-fill" style="width:24.0%"></div>
+                </div>
+                <div class="bar-pct">24.0%</div>
+            </div>
+            
+            <div class="bar-row">
+                <div class="bar-label">
+                    <span>Paid-plan required</span>
+                    <strong>4</strong>
+                </div>
+                <div class="bar-track">
+                    <div class="bar-fill" style="width:4.0%"></div>
+                </div>
+                <div class="bar-pct">4.0%</div>
+            </div>
+            
+            <div class="bar-row">
+                <div class="bar-label">
+                    <span>Partner/Sales gated</span>
+                    <strong>3</strong>
+                </div>
+                <div class="bar-track">
+                    <div class="bar-fill" style="width:3.0%"></div>
+                </div>
+                <div class="bar-pct">3.0%</div>
+            </div>
+            
+            <div class="bar-row">
+                <div class="bar-label">
+                    <span>Admin approval</span>
+                    <strong>1</strong>
+                </div>
+                <div class="bar-track">
+                    <div class="bar-fill" style="width:1.0%"></div>
+                </div>
+                <div class="bar-pct">1.0%</div>
+            </div>
+            
+            <div class="bar-row">
+                <div class="bar-label">
+                    <span>Trial</span>
+                    <strong>1</strong>
+                </div>
+                <div class="bar-track">
+                    <div class="bar-fill" style="width:1.0%"></div>
+                </div>
+                <div class="bar-pct">1.0%</div>
+            </div>
+            
+
+<h3>API surface</h3>
+
+
+            <div class="bar-row">
+                <div class="bar-label">
+                    <span>REST</span>
+                    <strong>62</strong>
+                </div>
+                <div class="bar-track">
+                    <div class="bar-fill" style="width:62.0%"></div>
+                </div>
+                <div class="bar-pct">62.0%</div>
+            </div>
+            
+            <div class="bar-row">
+                <div class="bar-label">
+                    <span>Unknown</span>
+                    <strong>16</strong>
+                </div>
+                <div class="bar-track">
+                    <div class="bar-fill" style="width:16.0%"></div>
+                </div>
+                <div class="bar-pct">16.0%</div>
+            </div>
+            
+            <div class="bar-row">
+                <div class="bar-label">
+                    <span>REST, Webhooks</span>
+                    <strong>6</strong>
+                </div>
+                <div class="bar-track">
+                    <div class="bar-fill" style="width:6.0%"></div>
+                </div>
+                <div class="bar-pct">6.0%</div>
+            </div>
+            
+            <div class="bar-row">
+                <div class="bar-label">
+                    <span>REST, SDK</span>
+                    <strong>5</strong>
+                </div>
+                <div class="bar-track">
+                    <div class="bar-fill" style="width:5.0%"></div>
+                </div>
+                <div class="bar-pct">5.0%</div>
+            </div>
+            
+            <div class="bar-row">
+                <div class="bar-label">
+                    <span>GraphQL, SDK</span>
+                    <strong>2</strong>
+                </div>
+                <div class="bar-track">
+                    <div class="bar-fill" style="width:2.0%"></div>
+                </div>
+                <div class="bar-pct">2.0%</div>
+            </div>
+            
+            <div class="bar-row">
+                <div class="bar-label">
+                    <span>REST, SDK, CLI</span>
+                    <strong>2</strong>
+                </div>
+                <div class="bar-track">
+                    <div class="bar-fill" style="width:2.0%"></div>
+                </div>
+                <div class="bar-pct">2.0%</div>
+            </div>
+            
+            <div class="bar-row">
+                <div class="bar-label">
+                    <span>GraphQL, REST, Webhooks</span>
+                    <strong>1</strong>
+                </div>
+                <div class="bar-track">
+                    <div class="bar-fill" style="width:1.0%"></div>
+                </div>
+                <div class="bar-pct">1.0%</div>
+            </div>
+            
+            <div class="bar-row">
+                <div class="bar-label">
+                    <span>REST, GraphQL, Webhooks</span>
+                    <strong>1</strong>
+                </div>
+                <div class="bar-track">
+                    <div class="bar-fill" style="width:1.0%"></div>
+                </div>
+                <div class="bar-pct">1.0%</div>
+            </div>
+            
+            <div class="bar-row">
+                <div class="bar-label">
+                    <span>CLI</span>
+                    <strong>1</strong>
+                </div>
+                <div class="bar-track">
+                    <div class="bar-fill" style="width:1.0%"></div>
+                </div>
+                <div class="bar-pct">1.0%</div>
+            </div>
+            
+            <div class="bar-row">
+                <div class="bar-label">
+                    <span>REST, SDK, CLI, Webhooks</span>
+                    <strong>1</strong>
+                </div>
+                <div class="bar-track">
+                    <div class="bar-fill" style="width:1.0%"></div>
+                </div>
+                <div class="bar-pct">1.0%</div>
+            </div>
+            
+            <div class="bar-row">
+                <div class="bar-label">
+                    <span>GraphQL, SDK, Webhooks</span>
+                    <strong>1</strong>
+                </div>
+                <div class="bar-track">
+                    <div class="bar-fill" style="width:1.0%"></div>
+                </div>
+                <div class="bar-pct">1.0%</div>
+            </div>
+            
+            <div class="bar-row">
+                <div class="bar-label">
+                    <span>REST, SDK, Webhooks</span>
+                    <strong>1</strong>
+                </div>
+                <div class="bar-track">
+                    <div class="bar-fill" style="width:1.0%"></div>
+                </div>
+                <div class="bar-pct">1.0%</div>
+            </div>
+            
+            <div class="bar-row">
+                <div class="bar-label">
+                    <span>REST, MCP</span>
+                    <strong>1</strong>
+                </div>
+                <div class="bar-track">
+                    <div class="bar-fill" style="width:1.0%"></div>
+                </div>
+                <div class="bar-pct">1.0%</div>
+            </div>
+            
+
+<h3>MCP</h3>
+
+
+            <div class="bar-row">
+                <div class="bar-label">
+                    <span>Yes</span>
+                    <strong>50</strong>
+                </div>
+                <div class="bar-track">
+                    <div class="bar-fill" style="width:50.0%"></div>
+                </div>
+                <div class="bar-pct">50.0%</div>
+            </div>
+            
+            <div class="bar-row">
+                <div class="bar-label">
+                    <span>Unknown</span>
+                    <strong>46</strong>
+                </div>
+                <div class="bar-track">
+                    <div class="bar-fill" style="width:46.0%"></div>
+                </div>
+                <div class="bar-pct">46.0%</div>
+            </div>
+            
+            <div class="bar-row">
+                <div class="bar-label">
+                    <span>No</span>
+                    <strong>4</strong>
+                </div>
+                <div class="bar-track">
+                    <div class="bar-fill" style="width:4.0%"></div>
+                </div>
+                <div class="bar-pct">4.0%</div>
+            </div>
+            
+
+<h3>Buildability</h3>
+
+
+            <div class="bar-row">
+                <div class="bar-label">
+                    <span>Yes</span>
+                    <strong>73</strong>
+                </div>
+                <div class="bar-track">
+                    <div class="bar-fill" style="width:73.0%"></div>
+                </div>
+                <div class="bar-pct">73.0%</div>
+            </div>
+            
+            <div class="bar-row">
+                <div class="bar-label">
+                    <span>Unknown</span>
+                    <strong>14</strong>
+                </div>
+                <div class="bar-track">
+                    <div class="bar-fill" style="width:14.0%"></div>
+                </div>
+                <div class="bar-pct">14.0%</div>
+            </div>
+            
+            <div class="bar-row">
+                <div class="bar-label">
+                    <span>Partial</span>
+                    <strong>12</strong>
+                </div>
+                <div class="bar-track">
+                    <div class="bar-fill" style="width:12.0%"></div>
+                </div>
+                <div class="bar-pct">12.0%</div>
+            </div>
+            
+            <div class="bar-row">
+                <div class="bar-label">
+                    <span>No</span>
+                    <strong>1</strong>
+                </div>
+                <div class="bar-track">
+                    <div class="bar-fill" style="width:1.0%"></div>
+                </div>
+                <div class="bar-pct">1.0%</div>
+            </div>
+            
+
+</section>
+
+
+<section class="section">
+
+<h2>Common blockers</h2>
+
+
+        <div class="mini-row">
+            <span>None</span>
+            <strong>63</strong>
+        </div>
+        
+        <div class="mini-row">
+            <span>Unknown</span>
+            <strong>14</strong>
+        </div>
+        
+        <div class="mini-row">
+            <span>Client registration plus user authorization; MCP authentication is OAuth and follows the user&#x27;s CRM permissions.</span>
+            <strong>1</strong>
+        </div>
+        
+        <div class="mini-row">
+            <span>OAuth app registration requires contacting Copper; individual API keys can be generated from Copper settings.</span>
+            <strong>1</strong>
+        </div>
+        
+        <div class="mini-row">
+            <span>Authentication method not specified in the evidence</span>
+            <strong>1</strong>
+        </div>
+        
+        <div class="mini-row">
+            <span>Customer/admin authorization is required; distributed apps must use global OAuth.</span>
+            <strong>1</strong>
+        </div>
+        
+
+</section>
+
+
+<section class="section">
+
+<h2>How the agent works</h2>
+
+<div class="workflow">
+
+    <div class="step">100-app input CSV</div>
+    <div class="arrow">→</div>
+    <div class="step">Official-doc search</div>
+    <div class="arrow">→</div>
+    <div class="step">Evidence collection</div>
+    <div class="arrow">→</div>
+    <div class="step">LLM extraction</div>
+    <div class="arrow">→</div>
+    <div class="step">Structured CSV</div>
+
+</div>
+
+<p class="muted">
+The pipeline searches app-specific official sources, sends the collected
+evidence to the extraction model, validates the structured response,
+saves progress after every app, and records failures rather than
+crashing the whole run.
+</p>
+
+</section>
+
+
+<section class="section">
+
+<h2>Verification</h2>
+
+<div class="grid">
+
+    <div class="card">
+        <div class="metric">20</div>
+        <div class="metric-label">Targeted sample</div>
+    </div>
+
+    <div class="card">
+        <div class="metric">19</div>
+        <div class="metric-label">Independently supported sample apps</div>
+    </div>
+
+    <div class="card">
+        <div class="metric">18.1%</div>
+        <div class="metric-label">First-pass factual accuracy</div>
+    </div>
+
+    <div class="card">
+        <div class="metric">1</div>
+        <div class="metric-label">Explicit unresolved case</div>
+    </div>
+
+</div>
+
+<div class="verify-box">
+
+<strong>Interpretation:</strong>
+
+<p>
+The verification sample was deliberately constructed as a targeted
+stress test, prioritizing weak/low-confidence rows rather than serving
+as a random estimate of all-100 accuracy. The 18.1% figure therefore
+describes the sampled first pass, not the expected accuracy of every
+row in the dataset.
+</p>
+
+<p>
+The verified sample was corrected against official documentation.
+Unresolved cases remain explicitly unresolved rather than being filled
+with guesses.
+</p>
+
+</div>
+
+</section>
+
+
+<section class="section">
+
+<h2>100-app dataset</h2>
+
+<div class="controls">
+
+    <input
+        id="search"
+        type="text"
+        placeholder="Search app, category, auth..."
+    >
+
+    <select id="status">
+        <option value="">All verification status</option>
+        <option value="Verified">Verified</option>
+        <option value="Unresolved">Unresolved</option>
+        <option value="Unverified">Unverified</option>
+        <option value="Needs retry">Needs retry</option>
+    </select>
+
+    <select id="build">
+        <option value="">All buildability</option>
+        <option value="Yes">Yes</option>
+        <option value="Partial">Partial</option>
+        <option value="No">No</option>
+        <option value="Unknown">Unknown</option>
+    </select>
+
+</div>
+
+<div class="table-wrap">
+
+<table id="apps">
+
+<thead>
+<tr>
+    <th>ID</th>
+    <th>App</th>
+    <th>Category</th>
+    <th>Auth</th>
+    <th>Access</th>
+    <th>API</th>
+    <th>MCP</th>
+    <th>Buildability</th>
+    <th>Blocker</th>
+    <th>Evidence</th>
+</tr>
+</thead>
+
+<tbody>
+
+            <tr data-status="Unverified"
+                data-category="CRM and Sales"
+                data-build="Yes">
+                <td>1</td>
+                <td><strong>Salesforce</strong></td>
+                <td>CRM and Sales</td>
+                <td>OAuth2</td>
+                <td>Self-serve</td>
+                <td>REST</td>
+                <td>Yes</td>
+                <td>Yes</td>
+                <td>None</td>
+                <td>
+                    <a href="https://developer.salesforce.com/docs/platform/hosted-mcp-servers/guide/hosted-mcp-servers-overview.html" target="_blank">Source</a>
+                </td>
+            </tr>
+            
+            <tr data-status="Unverified"
+                data-category="CRM and Sales"
+                data-build="Yes">
+                <td>2</td>
+                <td><strong>HubSpot</strong></td>
+                <td>CRM and Sales</td>
+                <td>OAuth2</td>
+                <td>Self-serve</td>
+                <td>Unknown</td>
+                <td>Unknown</td>
+                <td>Yes</td>
+                <td>None</td>
+                <td>
+                    <a href="https://developers.hubspot.com/docs/apps/legacy-apps/authentication/intro-to-auth" target="_blank">Source</a>
+                </td>
+            </tr>
+            
+            <tr data-status="Unverified"
+                data-category="CRM and Sales"
+                data-build="Yes">
+                <td>3</td>
+                <td><strong>Pipedrive</strong></td>
+                <td>CRM and Sales</td>
+                <td>OAuth2</td>
+                <td>Self-serve</td>
+                <td>REST</td>
+                <td>Unknown</td>
+                <td>Yes</td>
+                <td>None</td>
+                <td>
+                    <a href="https://developers.pipedrive.com/docs/api/v1" target="_blank">Source</a>
+                </td>
+            </tr>
+            
+            <tr data-status="Unverified"
+                data-category="CRM and Sales"
+                data-build="Yes">
+                <td>4</td>
+                <td><strong>Attio</strong></td>
+                <td>CRM and Sales</td>
+                <td>OAuth2, API key</td>
+                <td>Self-serve</td>
+                <td>REST</td>
+                <td>Yes</td>
+                <td>Yes</td>
+                <td>None</td>
+                <td>
+                    <a href="https://docs.attio.com/rest-api/guides/authentication" target="_blank">Source</a>
+                </td>
+            </tr>
+            
+            <tr data-status="Unverified"
+                data-category="CRM and Sales"
+                data-build="Yes">
+                <td>5</td>
+                <td><strong>Twenty</strong></td>
+                <td>CRM and Sales</td>
+                <td>OAuth2</td>
+                <td>Self-serve</td>
+                <td>REST</td>
+                <td>Yes</td>
+                <td>Yes</td>
+                <td>None</td>
+                <td>
+                    <a href="https://docs.twenty.com/developers/extend/api" target="_blank">Source</a>
+                </td>
+            </tr>
+            
+            <tr data-status="Unverified"
+                data-category="CRM and Sales"
+                data-build="Yes">
+                <td>6</td>
+                <td><strong>Podio</strong></td>
+                <td>CRM and Sales</td>
+                <td>OAuth2</td>
+                <td>Self-serve</td>
+                <td>REST</td>
+                <td>Unknown</td>
+                <td>Yes</td>
+                <td>None</td>
+                <td>
+                    <a href="https://developers.podio.com/" target="_blank">Source</a>
+                </td>
+            </tr>
+            
+            <tr data-status="Verified"
+                data-category="CRM and Sales"
+                data-build="Yes">
+                <td>7</td>
+                <td><strong>Zoho CRM</strong></td>
+                <td>CRM and Sales</td>
+                <td>OAuth2</td>
+                <td>Self-serve</td>
+                <td>REST</td>
+                <td>Yes</td>
+                <td>Yes</td>
+                <td>Client registration plus user authorization; MCP authentication is OAuth and follows the user&#x27;s CRM permissions.</td>
+                <td>
+                    <a href="https://www.zoho.com/crm/developer/docs/api/v8/" target="_blank">Source</a>
+                </td>
+            </tr>
+            
+            <tr data-status="Unverified"
+                data-category="CRM and Sales"
+                data-build="Yes">
+                <td>8</td>
+                <td><strong>Close</strong></td>
+                <td>CRM and Sales</td>
+                <td>API key</td>
+                <td>Unknown</td>
+                <td>REST</td>
+                <td>No</td>
+                <td>Yes</td>
+                <td>None</td>
+                <td>
+                    <a href="https://developer.close.com/api/overview" target="_blank">Source</a>
+                </td>
+            </tr>
+            
+            <tr data-status="Verified"
+                data-category="CRM and Sales"
+                data-build="Partial">
+                <td>9</td>
+                <td><strong>Copper</strong></td>
+                <td>CRM and Sales</td>
+                <td>API key, OAuth2</td>
+                <td>Partner/Sales gated</td>
+                <td>REST</td>
+                <td>Unknown</td>
+                <td>Partial</td>
+                <td>OAuth app registration requires contacting Copper; individual API keys can be generated from Copper settings.</td>
+                <td>
+                    <a href="https://developer.copper.com/introduction/authentication.html" target="_blank">Source</a>
+                </td>
+            </tr>
+            
+            <tr data-status="Unverified"
+                data-category="CRM and Sales"
+                data-build="Partial">
+                <td>10</td>
+                <td><strong>DealCloud</strong></td>
+                <td>CRM and Sales</td>
+                <td>Unknown</td>
+                <td>Unknown</td>
+                <td>REST</td>
+                <td>Unknown</td>
+                <td>Partial</td>
+                <td>Authentication method not specified in the evidence</td>
+                <td>
+                    <a href="https://api.docs.dealcloud.com/docs" target="_blank">Source</a>
+                </td>
+            </tr>
+            
+            <tr data-status="Verified"
+                data-category="Support and Helpdesk"
+                data-build="Partial">
+                <td>11</td>
+                <td><strong>Zendesk</strong></td>
+                <td>Support and Helpdesk</td>
+                <td>OAuth2, token</td>
+                <td>Admin approval</td>
+                <td>REST</td>
+                <td>Unknown</td>
+                <td>Partial</td>
+                <td>Customer/admin authorization is required; distributed apps must use global OAuth.</td>
+                <td>
+                    <a href="https://developer.zendesk.com/api-reference/introduction/security-and-auth/" target="_blank">Source</a>
+                </td>
+            </tr>
+            
+            <tr data-status="Unverified"
+                data-category="Support and Helpdesk"
+                data-build="Yes">
+                <td>12</td>
+                <td><strong>Intercom</strong></td>
+                <td>Support and Helpdesk</td>
+                <td>OAuth2, token</td>
+                <td>Self-serve</td>
+                <td>REST</td>
+                <td>Yes</td>
+                <td>Yes</td>
+                <td>None</td>
+                <td>
+                    <a href="https://developers.intercom.com/docs/guides/mcp" target="_blank">Source</a>
+                </td>
+            </tr>
+            
+            <tr data-status="Unverified"
+                data-category="Support and Helpdesk"
+                data-build="Yes">
+                <td>13</td>
+                <td><strong>Freshdesk</strong></td>
+                <td>Support and Helpdesk</td>
+                <td>API key</td>
+                <td>Unknown</td>
+                <td>REST</td>
+                <td>Yes</td>
+                <td>Yes</td>
+                <td>None</td>
+                <td>
+                    <a href="https://developers.freshdesk.com/api/" target="_blank">Source</a>
+                </td>
+            </tr>
+            
+            <tr data-status="Unverified"
+                data-category="Support and Helpdesk"
+                data-build="Yes">
+                <td>14</td>
+                <td><strong>Front</strong></td>
+                <td>Support and Helpdesk</td>
+                <td>OAuth2, API key, Basic, bearer</td>
+                <td>Self-serve</td>
+                <td>REST, Webhooks</td>
+                <td>Yes</td>
+                <td>Yes</td>
+                <td>None</td>
+                <td>
+                    <a href="https://help.front.com/en/articles/4883136" target="_blank">Source</a>
+                </td>
+            </tr>
+            
+            <tr data-status="Unverified"
+                data-category="Support and Helpdesk"
+                data-build="Partial">
+                <td>15</td>
+                <td><strong>Pylon</strong></td>
+                <td>Support and Helpdesk</td>
+                <td>OAuth2</td>
+                <td>Unknown</td>
+                <td>Unknown</td>
+                <td>Yes</td>
+                <td>Partial</td>
+                <td>Requires an OAuth-capable MCP server or a supported static credential; a public MCP server with no authentication cannot be connected.</td>
+                <td>
+                    <a href="https://www.usepylon.com/integrations/mcp" target="_blank">Source</a>
+                </td>
+            </tr>
+            
+            <tr data-status="Unverified"
+                data-category="Support and Helpdesk"
+                data-build="Yes">
+                <td>16</td>
+                <td><strong>LiveAgent</strong></td>
+                <td>Support and Helpdesk</td>
+                <td>API key</td>
+                <td>Self-serve</td>
+                <td>REST</td>
+                <td>Unknown</td>
+                <td>Yes</td>
+                <td>Rate limit of 180 requests per minute per API key may restrict high‑volume usage</td>
+                <td>
+                    <a href="https://support.liveagent.com/docs/api/v3/" target="_blank">Source</a>
+                </td>
+            </tr>
+            
+            <tr data-status="Verified"
+                data-category="Support and Helpdesk"
+                data-build="Yes">
+                <td>17</td>
+                <td><strong>Plain</strong></td>
+                <td>Support and Helpdesk</td>
+                <td>API key</td>
+                <td>Self-serve</td>
+                <td>GraphQL, SDK</td>
+                <td>Yes</td>
+                <td>Yes</td>
+                <td>API keys are created for machine users with fine-grained permissions; MCP uses the user&#x27;s existing Plain account.</td>
+                <td>
+                    <a href="https://www.plain.com/docs/graphql/authentication" target="_blank">Source</a>
+                </td>
+            </tr>
+            
+            <tr data-status="Unverified"
+                data-category="Support and Helpdesk"
+                data-build="Unknown">
+                <td>18</td>
+                <td><strong>Help Scout</strong></td>
+                <td>Support and Helpdesk</td>
+                <td>Unknown</td>
+                <td>Unknown</td>
+                <td>REST</td>
+                <td>Unknown</td>
+                <td>Unknown</td>
+                <td>Unknown</td>
+                <td>
+                    <a href="https://developer.helpscout.com/mailbox-api/overview/authentication/" target="_blank">Source</a>
+                </td>
+            </tr>
+            
+            <tr data-status="Unverified"
+                data-category="Support and Helpdesk"
+                data-build="Yes">
+                <td>19</td>
+                <td><strong>Gorgias</strong></td>
+                <td>Support and Helpdesk</td>
+                <td>API key, OAuth2</td>
+                <td>Self-serve</td>
+                <td>REST</td>
+                <td>Yes</td>
+                <td>Yes</td>
+                <td>None</td>
+                <td>
+                    <a href="https://developers.gorgias.com/reference/authentication" target="_blank">Source</a>
+                </td>
+            </tr>
+            
+            <tr data-status="Unverified"
+                data-category="Support and Helpdesk"
+                data-build="Yes">
+                <td>20</td>
+                <td><strong>Gladly</strong></td>
+                <td>Support and Helpdesk</td>
+                <td>Basic</td>
+                <td>Unknown</td>
+                <td>REST</td>
+                <td>Unknown</td>
+                <td>Yes</td>
+                <td>None</td>
+                <td>
+                    <a href="https://developer.gladly.com/rest/" target="_blank">Source</a>
+                </td>
+            </tr>
+            
+            <tr data-status="Verified"
+                data-category="Communications and Messaging"
+                data-build="Yes">
+                <td>21</td>
+                <td><strong>Slack</strong></td>
+                <td>Communications and Messaging</td>
+                <td>OAuth2</td>
+                <td>Self-serve</td>
+                <td>REST, Webhooks</td>
+                <td>Yes</td>
+                <td>Yes</td>
+                <td>None</td>
+                <td>
+                    <a href="https://api.slack.com/authentication/oauth-v2" target="_blank">Source</a>
+                </td>
+            </tr>
+            
+            <tr data-status="Unverified"
+                data-category="Communications and Messaging"
+                data-build="Yes">
+                <td>22</td>
+                <td><strong>Twilio</strong></td>
+                <td>Communications and Messaging</td>
+                <td>Basic</td>
+                <td>Self-serve</td>
+                <td>REST</td>
+                <td>Unknown</td>
+                <td>Yes</td>
+                <td>None</td>
+                <td>
+                    <a href="https://www.twilio.com/docs/iam/credentials/api" target="_blank">Source</a>
+                </td>
+            </tr>
+            
+            <tr data-status="Unverified"
+                data-category="Communications and Messaging"
+                data-build="Yes">
+                <td>23</td>
+                <td><strong>Zoho Cliq</strong></td>
+                <td>Communications and Messaging</td>
+                <td>OAuth2</td>
+                <td>Unknown</td>
+                <td>REST</td>
+                <td>Yes</td>
+                <td>Yes</td>
+                <td>None</td>
+                <td>
+                    <a href="https://www.zoho.com/cliq/help/restapi/v2/introduction/" target="_blank">Source</a>
+                </td>
+            </tr>
+            
+            <tr data-status="Unverified"
+                data-category="Communications and Messaging"
+                data-build="Yes">
+                <td>24</td>
+                <td><strong>Lark (Larksuite)</strong></td>
+                <td>Communications and Messaging</td>
+                <td>Unknown</td>
+                <td>Self-serve</td>
+                <td>REST</td>
+                <td>Yes</td>
+                <td>Yes</td>
+                <td>None</td>
+                <td>
+                    <a href="https://open.larksuite.com/document/home/index?lang=en-US" target="_blank">Source</a>
+                </td>
+            </tr>
+            
+            <tr data-status="Unverified"
+                data-category="Communications and Messaging"
+                data-build="Yes">
+                <td>25</td>
+                <td><strong>Pumble</strong></td>
+                <td>Communications and Messaging</td>
+                <td>token</td>
+                <td>Self-serve</td>
+                <td>REST</td>
+                <td>Yes</td>
+                <td>Yes</td>
+                <td>None</td>
+                <td>
+                    <a href="https://docs.pumble.com/" target="_blank">Source</a>
+                </td>
+            </tr>
+            
+            <tr data-status="Unverified"
+                data-category="Communications and Messaging"
+                data-build="Yes">
+                <td>26</td>
+                <td><strong>Discord</strong></td>
+                <td>Communications and Messaging</td>
+                <td>Unknown</td>
+                <td>Unknown</td>
+                <td>REST</td>
+                <td>Unknown</td>
+                <td>Yes</td>
+                <td>Unknown</td>
+                <td>
+                    <a href="https://docs.discord.com/developers/reference" target="_blank">Source</a>
+                </td>
+            </tr>
+            
+            <tr data-status="Unverified"
+                data-category="Communications and Messaging"
+                data-build="Yes">
+                <td>27</td>
+                <td><strong>Telegram</strong></td>
+                <td>Communications and Messaging</td>
+                <td>token</td>
+                <td>Self-serve</td>
+                <td>REST</td>
+                <td>Unknown</td>
+                <td>Yes</td>
+                <td>None</td>
+                <td>
+                    <a href="https://core.telegram.org/api/auth" target="_blank">Source</a>
+                </td>
+            </tr>
+            
+            <tr data-status="Verified"
+                data-category="Communications and Messaging"
+                data-build="Partial">
+                <td>28</td>
+                <td><strong>WhatsApp Business</strong></td>
+                <td>Communications and Messaging</td>
+                <td>token</td>
+                <td>Self-serve</td>
+                <td>REST, Webhooks</td>
+                <td>Unknown</td>
+                <td>Partial</td>
+                <td>Requires Meta business portfolio/WABA, phone-number setup, permissions, and access-token configuration.</td>
+                <td>
+                    <a href="https://developers.facebook.com/docs/whatsapp/cloud-api/overview" target="_blank">Source</a>
+                </td>
+            </tr>
+            
+            <tr data-status="Unverified"
+                data-category="Communications and Messaging"
+                data-build="Yes">
+                <td>29</td>
+                <td><strong>Aircall</strong></td>
+                <td>Communications and Messaging</td>
+                <td>API key, OAuth2</td>
+                <td>Self-serve</td>
+                <td>REST</td>
+                <td>Unknown</td>
+                <td>Yes</td>
+                <td>None</td>
+                <td>
+                    <a href="https://developers.aircall.io/api-references" target="_blank">Source</a>
+                </td>
+            </tr>
+            
+            <tr data-status="Unverified"
+                data-category="Communications and Messaging"
+                data-build="Yes">
+                <td>30</td>
+                <td><strong>Vonage</strong></td>
+                <td>Communications and Messaging</td>
+                <td>token</td>
+                <td>Self-serve</td>
+                <td>REST</td>
+                <td>Yes</td>
+                <td>Yes</td>
+                <td>None</td>
+                <td>
+                    <a href="https://developer.vonage.com/en/getting-started/concepts/authentication" target="_blank">Source</a>
+                </td>
+            </tr>
+            
+            <tr data-status="Verified"
+                data-category="Marketing, Ads, Email and Social"
+                data-build="Partial">
+                <td>31</td>
+                <td><strong>Google Ads</strong></td>
+                <td>Marketing, Ads, Email and Social</td>
+                <td>OAuth2, token</td>
+                <td>Self-serve</td>
+                <td>REST, SDK</td>
+                <td>Unknown</td>
+                <td>Partial</td>
+                <td>A developer token is required in addition to OAuth2; production access is controlled by developer-token access level.</td>
+                <td>
+                    <a href="https://developers.google.com/google-ads/api/rest/auth" target="_blank">Source</a>
+                </td>
+            </tr>
+            
+            <tr data-status="Unverified"
+                data-category="Marketing, Ads, Email and Social"
+                data-build="Yes">
+                <td>32</td>
+                <td><strong>Meta Ads</strong></td>
+                <td>Marketing, Ads, Email and Social</td>
+                <td>token</td>
+                <td>Self-serve</td>
+                <td>REST</td>
+                <td>Yes</td>
+                <td>Yes</td>
+                <td>None</td>
+                <td>
+                    <a href="https://developers.facebook.com/documentation/ads-commerce/ads-ai-connectors/ads-mcp-server/ads-mcp-server-overview/" target="_blank">Source</a>
+                </td>
+            </tr>
+            
+            <tr data-status="Verified"
+                data-category="Marketing, Ads, Email and Social"
+                data-build="Partial">
+                <td>33</td>
+                <td><strong>LinkedIn Ads</strong></td>
+                <td>Marketing, Ads, Email and Social</td>
+                <td>OAuth2</td>
+                <td>Partner/Sales gated</td>
+                <td>REST</td>
+                <td>Unknown</td>
+                <td>Partial</td>
+                <td>Most Marketing API products/permissions require explicit access approval.</td>
+                <td>
+                    <a href="https://learn.microsoft.com/en-us/linkedin/marketing/integrations/marketing-integrations-overview" target="_blank">Source</a>
+                </td>
+            </tr>
+            
+            <tr data-status="Unverified"
+                data-category="Marketing, Ads, Email and Social"
+                data-build="Unknown">
+                <td>34</td>
+                <td><strong>GoHighLevel</strong></td>
+                <td>Marketing, Ads, Email and Social</td>
+                <td>OAuth2</td>
+                <td>Unknown</td>
+                <td>REST</td>
+                <td>Unknown</td>
+                <td>Unknown</td>
+                <td>Unknown</td>
+                <td>
+                    <a href="https://marketplace.gohighlevel.com/docs/oauth/Overview" target="_blank">Source</a>
+                </td>
+            </tr>
+            
+            <tr data-status="Unverified"
+                data-category="Marketing, Ads, Email and Social"
+                data-build="Yes">
+                <td>35</td>
+                <td><strong>Mailchimp</strong></td>
+                <td>Marketing, Ads, Email and Social</td>
+                <td>OAuth2, API key</td>
+                <td>Self-serve</td>
+                <td>REST</td>
+                <td>Yes</td>
+                <td>Yes</td>
+                <td>None</td>
+                <td>
+                    <a href="https://mailchimp.com/developer/marketing/guides/authentication/" target="_blank">Source</a>
+                </td>
+            </tr>
+            
+            <tr data-status="Unverified"
+                data-category="Marketing, Ads, Email and Social"
+                data-build="Yes">
+                <td>36</td>
+                <td><strong>Klaviyo</strong></td>
+                <td>Marketing, Ads, Email and Social</td>
+                <td>OAuth2, API key, token</td>
+                <td>Unknown</td>
+                <td>REST</td>
+                <td>Unknown</td>
+                <td>Yes</td>
+                <td>Legacy v1/v2 APIs scheduled to retire on June 30, 2024</td>
+                <td>
+                    <a href="https://developers.klaviyo.com/en/reference/api_overview" target="_blank">Source</a>
+                </td>
+            </tr>
+            
+            <tr data-status="Unverified"
+                data-category="Marketing, Ads, Email and Social"
+                data-build="Yes">
+                <td>37</td>
+                <td><strong>systeme.io</strong></td>
+                <td>Marketing, Ads, Email and Social</td>
+                <td>API key</td>
+                <td>Self-serve</td>
+                <td>REST</td>
+                <td>Yes</td>
+                <td>Yes</td>
+                <td>None</td>
+                <td>
+                    <a href="https://help.systeme.io/article/2323-how-to-use-systeme-io-public-api" target="_blank">Source</a>
+                </td>
+            </tr>
+            
+            <tr data-status="Unverified"
+                data-category="Marketing, Ads, Email and Social"
+                data-build="Partial">
+                <td>38</td>
+                <td><strong>Pinterest</strong></td>
+                <td>Marketing, Ads, Email and Social</td>
+                <td>Unknown</td>
+                <td>Trial</td>
+                <td>REST</td>
+                <td>Unknown</td>
+                <td>Partial</td>
+                <td>Lack of clear authentication method and limited documentation on API endpoints</td>
+                <td>
+                    <a href="https://developers.pinterest.com/" target="_blank">Source</a>
+                </td>
+            </tr>
+            
+            <tr data-status="Unverified"
+                data-category="Marketing, Ads, Email and Social"
+                data-build="Unknown">
+                <td>39</td>
+                <td><strong>Threads (Meta)</strong></td>
+                <td>Marketing, Ads, Email and Social</td>
+                <td>Unknown</td>
+                <td>Unknown</td>
+                <td>Unknown</td>
+                <td>No</td>
+                <td>Unknown</td>
+                <td>Unknown</td>
+                <td>
+                    <a href="https://developers.facebook.com/documentation/threads/" target="_blank">Source</a>
+                </td>
+            </tr>
+            
+            <tr data-status="Unverified"
+                data-category="Marketing, Ads, Email and Social"
+                data-build="Unknown">
+                <td>40</td>
+                <td><strong>SendGrid</strong></td>
+                <td>Marketing, Ads, Email and Social</td>
+                <td>API key</td>
+                <td>Self-serve</td>
+                <td>REST</td>
+                <td>Unknown</td>
+                <td>Unknown</td>
+                <td>Unknown</td>
+                <td>
+                    <a href="https://app.sendgrid.com/docs/API_Reference" target="_blank">Source</a>
+                </td>
+            </tr>
+            
+            <tr data-status="Verified"
+                data-category="Ecommerce"
+                data-build="Yes">
+                <td>41</td>
+                <td><strong>Shopify</strong></td>
+                <td>Ecommerce</td>
+                <td>OAuth2, token</td>
+                <td>Self-serve</td>
+                <td>GraphQL, REST, Webhooks</td>
+                <td>Unknown</td>
+                <td>Yes</td>
+                <td>Merchant authorization and access scopes; some public-app review/onboarding requirements apply.</td>
+                <td>
+                    <a href="https://shopify.dev/docs/api/usage/authentication" target="_blank">Source</a>
+                </td>
+            </tr>
+            
+            <tr data-status="Unverified"
+                data-category="Ecommerce"
+                data-build="Yes">
+                <td>42</td>
+                <td><strong>WooCommerce</strong></td>
+                <td>Ecommerce</td>
+                <td>API key</td>
+                <td>Self-serve</td>
+                <td>REST</td>
+                <td>Unknown</td>
+                <td>Yes</td>
+                <td>None</td>
+                <td>
+                    <a href="https://woocommerce.com/document/woocommerce-rest-api/" target="_blank">Source</a>
+                </td>
+            </tr>
+            
+            <tr data-status="Verified"
+                data-category="Ecommerce"
+                data-build="Yes">
+                <td>43</td>
+                <td><strong>BigCommerce</strong></td>
+                <td>Ecommerce</td>
+                <td>OAuth2, token</td>
+                <td>Self-serve</td>
+                <td>REST, GraphQL, Webhooks</td>
+                <td>Unknown</td>
+                <td>Yes</td>
+                <td>Store/admin authorization and OAuth scopes.</td>
+                <td>
+                    <a href="https://docs.bigcommerce.com/developer/docs/overview/api-fundamentals/api-accounts" target="_blank">Source</a>
+                </td>
+            </tr>
+            
+            <tr data-status="Unverified"
+                data-category="Ecommerce"
+                data-build="Yes">
+                <td>44</td>
+                <td><strong>Salesforce Commerce Cloud</strong></td>
+                <td>Ecommerce</td>
+                <td>Unknown</td>
+                <td>Unknown</td>
+                <td>REST</td>
+                <td>Yes</td>
+                <td>Yes</td>
+                <td>None</td>
+                <td>
+                    <a href="https://developer.salesforce.com/docs/commerce/b2c-commerce/overview" target="_blank">Source</a>
+                </td>
+            </tr>
+            
+            <tr data-status="Unverified"
+                data-category="Ecommerce"
+                data-build="Unknown">
+                <td>45</td>
+                <td><strong>Magento (Adobe Commerce)</strong></td>
+                <td>Ecommerce</td>
+                <td>Unknown</td>
+                <td>Unknown</td>
+                <td>Unknown</td>
+                <td>Unknown</td>
+                <td>Unknown</td>
+                <td>Unknown</td>
+                <td>
+                    —
+                </td>
+            </tr>
+            
+            <tr data-status="Unverified"
+                data-category="Ecommerce"
+                data-build="Yes">
+                <td>46</td>
+                <td><strong>Squarespace</strong></td>
+                <td>Ecommerce</td>
+                <td>OAuth2</td>
+                <td>Self-serve</td>
+                <td>REST, Webhooks</td>
+                <td>Yes</td>
+                <td>Yes</td>
+                <td>None</td>
+                <td>
+                    <a href="https://developers.squarespace.com/commerce-apis/oauth" target="_blank">Source</a>
+                </td>
+            </tr>
+            
+            <tr data-status="Unverified"
+                data-category="Ecommerce"
+                data-build="Unknown">
+                <td>47</td>
+                <td><strong>Ecwid</strong></td>
+                <td>Ecommerce</td>
+                <td>Unknown</td>
+                <td>Unknown</td>
+                <td>Unknown</td>
+                <td>Unknown</td>
+                <td>Unknown</td>
+                <td>Unknown</td>
+                <td>
+                    —
+                </td>
+            </tr>
+            
+            <tr data-status="Unverified"
+                data-category="Ecommerce"
+                data-build="Yes">
+                <td>48</td>
+                <td><strong>Gumroad</strong></td>
+                <td>Ecommerce</td>
+                <td>OAuth2</td>
+                <td>Self-serve</td>
+                <td>REST</td>
+                <td>Yes</td>
+                <td>Yes</td>
+                <td>None</td>
+                <td>
+                    <a href="https://gumroad.com/api" target="_blank">Source</a>
+                </td>
+            </tr>
+            
+            <tr data-status="Unverified"
+                data-category="Ecommerce"
+                data-build="Unknown">
+                <td>49</td>
+                <td><strong>Amazon Selling Partner</strong></td>
+                <td>Ecommerce</td>
+                <td>Unknown</td>
+                <td>Unknown</td>
+                <td>Unknown</td>
+                <td>Unknown</td>
+                <td>Unknown</td>
+                <td>Unknown</td>
+                <td>
+                    <a href="https://www.bing.com/aclick?ld=e8Fd7CrKdonOiuL9rchaRr_DVUCUwgnCT0r6PZd8tCNUmOkWTTNngup7XfKp8fFTi6Htsp4D6-uNBt5qfxoLpBHhBN7Ohs4zQ9oWxqoTmlcyaq9IDvZ-Q02rMkKIrX9PLkV9c8mi-hEslFEl3dQMvH_BdrRHVE6o1Wka0G6zI4RZt-Ve4zLBU6Xk02jAv9CpegVRPSz7ndb2VXgzRBfyyZosohsfw&amp;u=aHR0cHMlM2ElMmYlMmZ3d3cuYW1hem9uLmluJTJmYnVzaW5lc3MlMmZyZWdpc3RlciUyZm9yZyUyZmxhbmRpbmclM2YlMjZyZWZfJTNkb2N0b3NibmdfQlJIRzAxNURiZSUyNmVmX2lkJTNkJTNhRyUzYXMlMjZzX2t3Y2lkJTNkQUwhOTAxMiEzISFwISFvISFhYm91dCUyNTIwYW1hem9uJTI1MjBidXNpbmVzcyE0MTQ1OTg4MDIhMTI2NDQzOTE3NDg0MTk3MiUyNm1zY2xraWQlM2RkMmVlMjE2YWZlMWQxYzg4NDM2MzRiZGExOWM1MDg5ZA&amp;rlid=d2ee216afe1d1c8843634bda19c5089d" target="_blank">Source</a>
+                </td>
+            </tr>
+            
+            <tr data-status="Unverified"
+                data-category="Ecommerce"
+                data-build="Unknown">
+                <td>50</td>
+                <td><strong>fanbasis</strong></td>
+                <td>Ecommerce</td>
+                <td>Unknown</td>
+                <td>Unknown</td>
+                <td>Unknown</td>
+                <td>Unknown</td>
+                <td>Unknown</td>
+                <td>Unknown</td>
+                <td>
+                    —
+                </td>
+            </tr>
+            
+            <tr data-status="Unverified"
+                data-category="Data, SEO and Scraping"
+                data-build="Yes">
+                <td>51</td>
+                <td><strong>DataForSEO</strong></td>
+                <td>Data, SEO and Scraping</td>
+                <td>Basic</td>
+                <td>Self-serve</td>
+                <td>REST</td>
+                <td>Unknown</td>
+                <td>Yes</td>
+                <td>None</td>
+                <td>
+                    <a href="https://docs.dataforseo.com/v3/auth/" target="_blank">Source</a>
+                </td>
+            </tr>
+            
+            <tr data-status="Unverified"
+                data-category="Data, SEO and Scraping"
+                data-build="Yes">
+                <td>52</td>
+                <td><strong>SE Ranking</strong></td>
+                <td>Data, SEO and Scraping</td>
+                <td>API key</td>
+                <td>Self-serve</td>
+                <td>REST</td>
+                <td>Unknown</td>
+                <td>Yes</td>
+                <td>None</td>
+                <td>
+                    <a href="https://seranking.com/api/data/getting-started/" target="_blank">Source</a>
+                </td>
+            </tr>
+            
+            <tr data-status="Verified"
+                data-category="Data, SEO and Scraping"
+                data-build="Partial">
+                <td>53</td>
+                <td><strong>Ahrefs</strong></td>
+                <td>Data, SEO and Scraping</td>
+                <td>API key</td>
+                <td>Paid-plan required</td>
+                <td>REST</td>
+                <td>Yes</td>
+                <td>Partial</td>
+                <td>Eligible paid plans/API units and workspace owner/admin access are required for API-key management; MCP is also plan-gated.</td>
+                <td>
+                    <a href="https://docs.ahrefs.com/en/api/docs/introduction" target="_blank">Source</a>
+                </td>
+            </tr>
+            
+            <tr data-status="Unverified"
+                data-category="Data, SEO and Scraping"
+                data-build="Yes">
+                <td>54</td>
+                <td><strong>MrScraper</strong></td>
+                <td>Data, SEO and Scraping</td>
+                <td>Unknown</td>
+                <td>Self-serve</td>
+                <td>CLI</td>
+                <td>Yes</td>
+                <td>Yes</td>
+                <td>None</td>
+                <td>
+                    <a href="https://docs.mrscraper.com" target="_blank">Source</a>
+                </td>
+            </tr>
+            
+            <tr data-status="Verified"
+                data-category="Data, SEO and Scraping"
+                data-build="Yes">
+                <td>55</td>
+                <td><strong>Apify</strong></td>
+                <td>Data, SEO and Scraping</td>
+                <td>token</td>
+                <td>Self-serve</td>
+                <td>REST, SDK</td>
+                <td>Yes</td>
+                <td>Yes</td>
+                <td>None</td>
+                <td>
+                    <a href="https://docs.apify.com/api/v2" target="_blank">Source</a>
+                </td>
+            </tr>
+            
+            <tr data-status="Unverified"
+                data-category="Data, SEO and Scraping"
+                data-build="Yes">
+                <td>56</td>
+                <td><strong>Firecrawl</strong></td>
+                <td>Data, SEO and Scraping</td>
+                <td>token</td>
+                <td>Self-serve</td>
+                <td>REST</td>
+                <td>Yes</td>
+                <td>Yes</td>
+                <td>None</td>
+                <td>
+                    <a href="https://docs.firecrawl.dev/api-reference/introduction" target="_blank">Source</a>
+                </td>
+            </tr>
+            
+            <tr data-status="Unverified"
+                data-category="Data, SEO and Scraping"
+                data-build="Unknown">
+                <td>57</td>
+                <td><strong>Bright Data</strong></td>
+                <td>Data, SEO and Scraping</td>
+                <td>Unknown</td>
+                <td>Unknown</td>
+                <td>Unknown</td>
+                <td>Unknown</td>
+                <td>Unknown</td>
+                <td>Unknown</td>
+                <td>
+                    —
+                </td>
+            </tr>
+            
+            <tr data-status="Unverified"
+                data-category="Data, SEO and Scraping"
+                data-build="Unknown">
+                <td>58</td>
+                <td><strong>Sherlock</strong></td>
+                <td>Data, SEO and Scraping</td>
+                <td>OAuth2</td>
+                <td>Unknown</td>
+                <td>Unknown</td>
+                <td>Unknown</td>
+                <td>Unknown</td>
+                <td>Unknown</td>
+                <td>
+                    <a href="https://github.com/sherlock-project/sherlock" target="_blank">Source</a>
+                </td>
+            </tr>
+            
+            <tr data-status="Unverified"
+                data-category="Data, SEO and Scraping"
+                data-build="Unknown">
+                <td>59</td>
+                <td><strong>Waterfall.io</strong></td>
+                <td>Data, SEO and Scraping</td>
+                <td>Unknown</td>
+                <td>Unknown</td>
+                <td>Unknown</td>
+                <td>Unknown</td>
+                <td>Unknown</td>
+                <td>Unknown</td>
+                <td>
+                    —
+                </td>
+            </tr>
+            
+            <tr data-status="Unverified"
+                data-category="Data, SEO and Scraping"
+                data-build="Yes">
+                <td>60</td>
+                <td><strong>Clay</strong></td>
+                <td>Data, SEO and Scraping</td>
+                <td>API key</td>
+                <td>Self-serve</td>
+                <td>REST</td>
+                <td>No</td>
+                <td>Yes</td>
+                <td>None</td>
+                <td>
+                    <a href="https://developers.clay.com/public-api/authentication" target="_blank">Source</a>
+                </td>
+            </tr>
+            
+            <tr data-status="Unverified"
+                data-category="Developer, Infra and Data platforms"
+                data-build="Yes">
+                <td>61</td>
+                <td><strong>GitHub</strong></td>
+                <td>Developer, Infra and Data platforms</td>
+                <td>token</td>
+                <td>Self-serve</td>
+                <td>REST</td>
+                <td>Yes</td>
+                <td>Yes</td>
+                <td>None</td>
+                <td>
+                    <a href="https://docs.github.com/v3" target="_blank">Source</a>
+                </td>
+            </tr>
+            
+            <tr data-status="Unverified"
+                data-category="Developer, Infra and Data platforms"
+                data-build="Yes">
+                <td>62</td>
+                <td><strong>Vercel</strong></td>
+                <td>Developer, Infra and Data platforms</td>
+                <td>OAuth2</td>
+                <td>Self-serve</td>
+                <td>REST, Webhooks</td>
+                <td>Unknown</td>
+                <td>Yes</td>
+                <td>None</td>
+                <td>
+                    <a href="https://vercel.com/docs/rest-api" target="_blank">Source</a>
+                </td>
+            </tr>
+            
+            <tr data-status="Verified"
+                data-category="Developer, Infra and Data platforms"
+                data-build="Yes">
+                <td>63</td>
+                <td><strong>Netlify</strong></td>
+                <td>Developer, Infra and Data platforms</td>
+                <td>OAuth2, token</td>
+                <td>Self-serve</td>
+                <td>REST, SDK, CLI, Webhooks</td>
+                <td>Unknown</td>
+                <td>Yes</td>
+                <td>None</td>
+                <td>
+                    <a href="https://docs.netlify.com/api-and-cli-guides/api-guides/get-started-with-api/" target="_blank">Source</a>
+                </td>
+            </tr>
+            
+            <tr data-status="Unverified"
+                data-category="Developer, Infra and Data platforms"
+                data-build="Yes">
+                <td>64</td>
+                <td><strong>Cloudflare</strong></td>
+                <td>Developer, Infra and Data platforms</td>
+                <td>token</td>
+                <td>Self-serve</td>
+                <td>REST</td>
+                <td>Yes</td>
+                <td>Yes</td>
+                <td>None</td>
+                <td>
+                    <a href="https://developers.cloudflare.com/api/" target="_blank">Source</a>
+                </td>
+            </tr>
+            
+            <tr data-status="Unverified"
+                data-category="Developer, Infra and Data platforms"
+                data-build="Yes">
+                <td>65</td>
+                <td><strong>Supabase</strong></td>
+                <td>Developer, Infra and Data platforms</td>
+                <td>OAuth2, API key, password, magic link, OTP, social login, SSO</td>
+                <td>Self-serve</td>
+                <td>REST, SDK</td>
+                <td>Yes</td>
+                <td>Yes</td>
+                <td>None</td>
+                <td>
+                    <a href="https://supabase.com/docs/reference/api/introduction" target="_blank">Source</a>
+                </td>
+            </tr>
+            
+            <tr data-status="Unverified"
+                data-category="Developer, Infra and Data platforms"
+                data-build="Yes">
+                <td>66</td>
+                <td><strong>Neo4j</strong></td>
+                <td>Developer, Infra and Data platforms</td>
+                <td>OAuth2</td>
+                <td>Self-serve</td>
+                <td>REST</td>
+                <td>Yes</td>
+                <td>Yes</td>
+                <td>None</td>
+                <td>
+                    <a href="https://neo4j.com/docs/mcp/current/" target="_blank">Source</a>
+                </td>
+            </tr>
+            
+            <tr data-status="Unverified"
+                data-category="Developer, Infra and Data platforms"
+                data-build="Unknown">
+                <td>67</td>
+                <td><strong>Snowflake</strong></td>
+                <td>Developer, Infra and Data platforms</td>
+                <td>Unknown</td>
+                <td>Unknown</td>
+                <td>Unknown</td>
+                <td>Yes</td>
+                <td>Unknown</td>
+                <td>Unknown</td>
+                <td>
+                    <a href="https://docs.snowflake.com/en/user-guide/snowflake-cortex/cortex-agents-mcp" target="_blank">Source</a>
+                </td>
+            </tr>
+            
+            <tr data-status="Unverified"
+                data-category="Developer, Infra and Data platforms"
+                data-build="Yes">
+                <td>68</td>
+                <td><strong>MongoDB Atlas</strong></td>
+                <td>Developer, Infra and Data platforms</td>
+                <td>OAuth2, API key</td>
+                <td>Self-serve</td>
+                <td>REST</td>
+                <td>Yes</td>
+                <td>Yes</td>
+                <td>None</td>
+                <td>
+                    <a href="https://www.mongodb.com/docs/atlas/api/api-authentication/" target="_blank">Source</a>
+                </td>
+            </tr>
+            
+            <tr data-status="Verified"
+                data-category="Developer, Infra and Data platforms"
+                data-build="Yes">
+                <td>69</td>
+                <td><strong>Datadog</strong></td>
+                <td>Developer, Infra and Data platforms</td>
+                <td>API key, application key</td>
+                <td>Self-serve</td>
+                <td>REST</td>
+                <td>Unknown</td>
+                <td>Yes</td>
+                <td>API key plus application key and appropriate permissions are required.</td>
+                <td>
+                    <a href="https://docs.datadoghq.com/api/latest/authentication/" target="_blank">Source</a>
+                </td>
+            </tr>
+            
+            <tr data-status="Unverified"
+                data-category="Developer, Infra and Data platforms"
+                data-build="Yes">
+                <td>70</td>
+                <td><strong>Sentry</strong></td>
+                <td>Developer, Infra and Data platforms</td>
+                <td>token</td>
+                <td>Self-serve</td>
+                <td>REST</td>
+                <td>Unknown</td>
+                <td>Yes</td>
+                <td>None</td>
+                <td>
+                    <a href="https://docs.sentry.io/api/" target="_blank">Source</a>
+                </td>
+            </tr>
+            
+            <tr data-status="Unverified"
+                data-category="Productivity and Project Management"
+                data-build="Yes">
+                <td>71</td>
+                <td><strong>Notion</strong></td>
+                <td>Productivity and Project Management</td>
+                <td>OAuth2, token</td>
+                <td>Self-serve</td>
+                <td>REST</td>
+                <td>Yes</td>
+                <td>Yes</td>
+                <td>None</td>
+                <td>
+                    <a href="https://developers.notion.com/reference/authentication" target="_blank">Source</a>
+                </td>
+            </tr>
+            
+            <tr data-status="Unverified"
+                data-category="Productivity and Project Management"
+                data-build="Yes">
+                <td>72</td>
+                <td><strong>Airtable</strong></td>
+                <td>Productivity and Project Management</td>
+                <td>token</td>
+                <td>Self-serve</td>
+                <td>REST</td>
+                <td>Yes</td>
+                <td>Yes</td>
+                <td>None</td>
+                <td>
+                    <a href="https://airtable.com/developers/web/api/authentication" target="_blank">Source</a>
+                </td>
+            </tr>
+            
+            <tr data-status="Verified"
+                data-category="Productivity and Project Management"
+                data-build="Yes">
+                <td>73</td>
+                <td><strong>Linear</strong></td>
+                <td>Productivity and Project Management</td>
+                <td>OAuth2, API key</td>
+                <td>Self-serve</td>
+                <td>GraphQL, SDK</td>
+                <td>Unknown</td>
+                <td>Yes</td>
+                <td>None</td>
+                <td>
+                    <a href="https://linear.app/developers/graphql" target="_blank">Source</a>
+                </td>
+            </tr>
+            
+            <tr data-status="Unverified"
+                data-category="Productivity and Project Management"
+                data-build="Yes">
+                <td>74</td>
+                <td><strong>Jira</strong></td>
+                <td>Productivity and Project Management</td>
+                <td>Basic, API key</td>
+                <td>Self-serve</td>
+                <td>REST</td>
+                <td>Unknown</td>
+                <td>Yes</td>
+                <td>None</td>
+                <td>
+                    <a href="https://developer.atlassian.com/cloud/jira/platform/basic-auth-for-rest-apis/" target="_blank">Source</a>
+                </td>
+            </tr>
+            
+            <tr data-status="Unverified"
+                data-category="Productivity and Project Management"
+                data-build="Yes">
+                <td>75</td>
+                <td><strong>Asana</strong></td>
+                <td>Productivity and Project Management</td>
+                <td>OAuth2, token</td>
+                <td>Self-serve</td>
+                <td>REST</td>
+                <td>Yes</td>
+                <td>Yes</td>
+                <td>None</td>
+                <td>
+                    <a href="https://developers.asana.com/docs/authentication" target="_blank">Source</a>
+                </td>
+            </tr>
+            
+            <tr data-status="Unverified"
+                data-category="Productivity and Project Management"
+                data-build="Yes">
+                <td>76</td>
+                <td><strong>Monday.com</strong></td>
+                <td>Productivity and Project Management</td>
+                <td>token</td>
+                <td>Self-serve</td>
+                <td>GraphQL, SDK, Webhooks</td>
+                <td>Yes</td>
+                <td>Yes</td>
+                <td>None</td>
+                <td>
+                    <a href="https://developer.monday.com/api-reference/" target="_blank">Source</a>
+                </td>
+            </tr>
+            
+            <tr data-status="Unverified"
+                data-category="Productivity and Project Management"
+                data-build="Yes">
+                <td>77</td>
+                <td><strong>ClickUp</strong></td>
+                <td>Productivity and Project Management</td>
+                <td>OAuth2, API key</td>
+                <td>Self-serve</td>
+                <td>REST</td>
+                <td>Yes</td>
+                <td>Yes</td>
+                <td>None</td>
+                <td>
+                    <a href="https://developer.clickup.com/docs/authentication" target="_blank">Source</a>
+                </td>
+            </tr>
+            
+            <tr data-status="Verified"
+                data-category="Productivity and Project Management"
+                data-build="Yes">
+                <td>78</td>
+                <td><strong>Coda</strong></td>
+                <td>Productivity and Project Management</td>
+                <td>OAuth2, API token</td>
+                <td>Self-serve</td>
+                <td>REST, SDK</td>
+                <td>Yes</td>
+                <td>Yes</td>
+                <td>MCP is beta and access is scoped to the user&#x27;s Coda account/workspace.</td>
+                <td>
+                    <a href="https://coda.io/developers/apis/v1" target="_blank">Source</a>
+                </td>
+            </tr>
+            
+            <tr data-status="Unverified"
+                data-category="Productivity and Project Management"
+                data-build="Yes">
+                <td>79</td>
+                <td><strong>Smartsheet</strong></td>
+                <td>Productivity and Project Management</td>
+                <td>OAuth2</td>
+                <td>Self-serve</td>
+                <td>REST, SDK</td>
+                <td>Yes</td>
+                <td>Yes</td>
+                <td>None</td>
+                <td>
+                    <a href="https://developers.smartsheet.com/" target="_blank">Source</a>
+                </td>
+            </tr>
+            
+            <tr data-status="Unverified"
+                data-category="Productivity and Project Management"
+                data-build="Unknown">
+                <td>80</td>
+                <td><strong>Harvest</strong></td>
+                <td>Productivity and Project Management</td>
+                <td>Unknown</td>
+                <td>Unknown</td>
+                <td>Unknown</td>
+                <td>Unknown</td>
+                <td>Unknown</td>
+                <td>Unknown</td>
+                <td>
+                    —
+                </td>
+            </tr>
+            
+            <tr data-status="Verified"
+                data-category="Finance and Fintech"
+                data-build="Yes">
+                <td>81</td>
+                <td><strong>Stripe</strong></td>
+                <td>Finance and Fintech</td>
+                <td>API key</td>
+                <td>Self-serve</td>
+                <td>REST, SDK, Webhooks</td>
+                <td>Unknown</td>
+                <td>Yes</td>
+                <td>Account-specific API keys and permission controls.</td>
+                <td>
+                    <a href="https://docs.stripe.com/api/authentication" target="_blank">Source</a>
+                </td>
+            </tr>
+            
+            <tr data-status="Unverified"
+                data-category="Finance and Fintech"
+                data-build="Yes">
+                <td>82</td>
+                <td><strong>Plaid</strong></td>
+                <td>Finance and Fintech</td>
+                <td>OAuth2</td>
+                <td>Self-serve</td>
+                <td>REST</td>
+                <td>Yes</td>
+                <td>Yes</td>
+                <td>None</td>
+                <td>
+                    <a href="https://plaid.com/docs/api/" target="_blank">Source</a>
+                </td>
+            </tr>
+            
+            <tr data-status="Unverified"
+                data-category="Finance and Fintech"
+                data-build="Yes">
+                <td>83</td>
+                <td><strong>Binance</strong></td>
+                <td>Finance and Fintech</td>
+                <td>API key</td>
+                <td>Self-serve</td>
+                <td>REST</td>
+                <td>Unknown</td>
+                <td>Yes</td>
+                <td>None</td>
+                <td>
+                    <a href="https://binance-docs.github.io/apiAgent-API-EN/" target="_blank">Source</a>
+                </td>
+            </tr>
+            
+            <tr data-status="Unresolved"
+                data-category="Finance and Fintech"
+                data-build="Unknown">
+                <td>84</td>
+                <td><strong>Paygent Connect</strong></td>
+                <td>Finance and Fintech</td>
+                <td>Unknown</td>
+                <td>Unknown</td>
+                <td>Unknown</td>
+                <td>Unknown</td>
+                <td>Unknown</td>
+                <td>Unresolved: no sufficiently strong first-party evidence established in this pass.</td>
+                <td>
+                    —
+                </td>
+            </tr>
+            
+            <tr data-status="Unverified"
+                data-category="Finance and Fintech"
+                data-build="Yes">
+                <td>85</td>
+                <td><strong>iPayX</strong></td>
+                <td>Finance and Fintech</td>
+                <td>token</td>
+                <td>Self-serve</td>
+                <td>REST, Webhooks</td>
+                <td>Yes</td>
+                <td>Yes</td>
+                <td>None</td>
+                <td>
+                    <a href="https://www.ipayx.ai/docs/api?lang=en" target="_blank">Source</a>
+                </td>
+            </tr>
+            
+            <tr data-status="Unverified"
+                data-category="Finance and Fintech"
+                data-build="Yes">
+                <td>86</td>
+                <td><strong>QuickBooks</strong></td>
+                <td>Finance and Fintech</td>
+                <td>OAuth2</td>
+                <td>Self-serve</td>
+                <td>REST</td>
+                <td>Yes</td>
+                <td>Yes</td>
+                <td>None</td>
+                <td>
+                    <a href="https://developer.intuit.com/app/developer/qbo/docs/develop/authentication-and-authorization" target="_blank">Source</a>
+                </td>
+            </tr>
+            
+            <tr data-status="Unverified"
+                data-category="Finance and Fintech"
+                data-build="Yes">
+                <td>87</td>
+                <td><strong>Xero</strong></td>
+                <td>Finance and Fintech</td>
+                <td>OAuth2</td>
+                <td>Self-serve</td>
+                <td>REST, SDK, CLI</td>
+                <td>Yes</td>
+                <td>Yes</td>
+                <td>None</td>
+                <td>
+                    <a href="https://developer.xero.com/" target="_blank">Source</a>
+                </td>
+            </tr>
+            
+            <tr data-status="Unverified"
+                data-category="Finance and Fintech"
+                data-build="Yes">
+                <td>88</td>
+                <td><strong>Brex</strong></td>
+                <td>Finance and Fintech</td>
+                <td>token</td>
+                <td>Paid-plan required</td>
+                <td>REST</td>
+                <td>Unknown</td>
+                <td>Yes</td>
+                <td>None</td>
+                <td>
+                    <a href="https://developer.brex.com/guides/quickstart" target="_blank">Source</a>
+                </td>
+            </tr>
+            
+            <tr data-status="Unverified"
+                data-category="Finance and Fintech"
+                data-build="Yes">
+                <td>89</td>
+                <td><strong>Ramp</strong></td>
+                <td>Finance and Fintech</td>
+                <td>Basic</td>
+                <td>Self-serve</td>
+                <td>REST</td>
+                <td>Yes</td>
+                <td>Yes</td>
+                <td>None</td>
+                <td>
+                    <a href="https://docs.ramp.com/developer-api/v1/authorization" target="_blank">Source</a>
+                </td>
+            </tr>
+            
+            <tr data-status="Unverified"
+                data-category="Finance and Fintech"
+                data-build="Partial">
+                <td>90</td>
+                <td><strong>PitchBook</strong></td>
+                <td>Finance and Fintech</td>
+                <td>Unknown</td>
+                <td>Paid-plan required</td>
+                <td>Unknown</td>
+                <td>Unknown</td>
+                <td>Partial</td>
+                <td>Requires a standalone contract agreement with PitchBook</td>
+                <td>
+                    <a href="https://pitchbook.com/help/PitchBook-api" target="_blank">Source</a>
+                </td>
+            </tr>
+            
+            <tr data-status="Verified"
+                data-category="AI, Research and Media-native"
+                data-build="Partial">
+                <td>91</td>
+                <td><strong>NotebookLM</strong></td>
+                <td>AI, Research and Media-native</td>
+                <td>OAuth2/token</td>
+                <td>Paid-plan required</td>
+                <td>REST</td>
+                <td>Unknown</td>
+                <td>Partial</td>
+                <td>Enterprise license plus Google Cloud project, billing, IAM setup, and Cloud NotebookLM User role for sharing.</td>
+                <td>
+                    <a href="https://docs.cloud.google.com/gemini/enterprise/notebooklm-enterprise/docs/api-notebooks" target="_blank">Source</a>
+                </td>
+            </tr>
+            
+            <tr data-status="Verified"
+                data-category="AI, Research and Media-native"
+                data-build="Partial">
+                <td>92</td>
+                <td><strong>Otter AI</strong></td>
+                <td>AI, Research and Media-native</td>
+                <td>API key/token</td>
+                <td>Partner/Sales gated</td>
+                <td>REST</td>
+                <td>Yes</td>
+                <td>Partial</td>
+                <td>Public API is available for Enterprise workspaces; contact an Otter account manager if it is not enabled.</td>
+                <td>
+                    <a href="https://help.otter.ai/hc/en-us/articles/36130822688279-Otter-ai-Public-API" target="_blank">Source</a>
+                </td>
+            </tr>
+            
+            <tr data-status="Unverified"
+                data-category="AI, Research and Media-native"
+                data-build="Yes">
+                <td>93</td>
+                <td><strong>Fathom</strong></td>
+                <td>AI, Research and Media-native</td>
+                <td>Unknown</td>
+                <td>Self-serve</td>
+                <td>REST</td>
+                <td>Yes</td>
+                <td>Yes</td>
+                <td>None</td>
+                <td>
+                    <a href="https://help.fathom.video/en/articles/8368641" target="_blank">Source</a>
+                </td>
+            </tr>
+            
+            <tr data-status="Unverified"
+                data-category="AI, Research and Media-native"
+                data-build="Yes">
+                <td>94</td>
+                <td><strong>Consensus</strong></td>
+                <td>AI, Research and Media-native</td>
+                <td>API key</td>
+                <td>Self-serve</td>
+                <td>REST</td>
+                <td>Yes</td>
+                <td>Yes</td>
+                <td>None</td>
+                <td>
+                    <a href="https://docs.consensus.app/core-features/api" target="_blank">Source</a>
+                </td>
+            </tr>
+            
+            <tr data-status="Unverified"
+                data-category="AI, Research and Media-native"
+                data-build="Yes">
+                <td>95</td>
+                <td><strong>Reducto</strong></td>
+                <td>AI, Research and Media-native</td>
+                <td>API key</td>
+                <td>Self-serve</td>
+                <td>REST, SDK, CLI</td>
+                <td>Yes</td>
+                <td>Yes</td>
+                <td>None</td>
+                <td>
+                    <a href="https://docs.reducto.ai/quickstart" target="_blank">Source</a>
+                </td>
+            </tr>
+            
+            <tr data-status="Unverified"
+                data-category="AI, Research and Media-native"
+                data-build="Yes">
+                <td>96</td>
+                <td><strong>Devin</strong></td>
+                <td>AI, Research and Media-native</td>
+                <td>token</td>
+                <td>Unknown</td>
+                <td>REST</td>
+                <td>Yes</td>
+                <td>Yes</td>
+                <td>None</td>
+                <td>
+                    <a href="https://docs.devin.ai/work-with-devin/devin-mcp" target="_blank">Source</a>
+                </td>
+            </tr>
+            
+            <tr data-status="Unverified"
+                data-category="AI, Research and Media-native"
+                data-build="Yes">
+                <td>97</td>
+                <td><strong>higgsfield</strong></td>
+                <td>AI, Research and Media-native</td>
+                <td>API key</td>
+                <td>Self-serve</td>
+                <td>REST</td>
+                <td>Unknown</td>
+                <td>Yes</td>
+                <td>None</td>
+                <td>
+                    <a href="https://docs.higgsfield.ai/docs/authentication" target="_blank">Source</a>
+                </td>
+            </tr>
+            
+            <tr data-status="Unverified"
+                data-category="AI, Research and Media-native"
+                data-build="No">
+                <td>98</td>
+                <td><strong>Mermaid CLI</strong></td>
+                <td>AI, Research and Media-native</td>
+                <td>Unknown</td>
+                <td>Self-serve</td>
+                <td>Unknown</td>
+                <td>No</td>
+                <td>No</td>
+                <td>No public API surface to interact with programmatically; only a CLI tool.</td>
+                <td>
+                    <a href="https://github.com/mermaid-js/mermaid-cli" target="_blank">Source</a>
+                </td>
+            </tr>
+            
+            <tr data-status="Unverified"
+                data-category="AI, Research and Media-native"
+                data-build="Yes">
+                <td>99</td>
+                <td><strong>YouTube Transcript</strong></td>
+                <td>AI, Research and Media-native</td>
+                <td>token</td>
+                <td>Self-serve</td>
+                <td>REST, MCP</td>
+                <td>Yes</td>
+                <td>Yes</td>
+                <td>None</td>
+                <td>
+                    <a href="https://transcriptapi.com/docs/api/" target="_blank">Source</a>
+                </td>
+            </tr>
+            
+            <tr data-status="Unverified"
+                data-category="AI, Research and Media-native"
+                data-build="Yes">
+                <td>100</td>
+                <td><strong>Grain</strong></td>
+                <td>AI, Research and Media-native</td>
+                <td>OAuth2</td>
+                <td>Unknown</td>
+                <td>Unknown</td>
+                <td>Yes</td>
+                <td>Yes</td>
+                <td>None</td>
+                <td>
+                    <a href="https://developers.grain.com/" target="_blank">Source</a>
+                </td>
+            </tr>
+            
+</tbody>
+
+</table>
+
+</div>
+
+</section>
+
+
+<section class="section">
+
+<h2>Limitations & human involvement</h2>
+
+<p class="muted">
+The research agent is an acceleration layer, not a substitute for
+source verification. Search engines can miss official pages, API
+documentation can be ambiguous, and access requirements can vary by
+plan, workspace, region, approval status, or enterprise agreement.
+</p>
+
+<p class="muted">
+The final dataset explicitly records uncertainty and failed research
+rather than converting missing evidence into invented answers.
+Human verification was used on a targeted sample to identify errors
+and correct the final sample.
+</p>
+
+</section>
+
+
+<section class="section">
+
+<h2>Repository / reproducibility</h2>
+
+<p class="muted">
+Source code, the 100-app input dataset, generated research results,
+verification artifacts, analysis scripts, and this case study are
+stored in the project repository.
+</p>
+
+<pre>
+python -m pip install -r requirements.txt
+python agent/researcher.py --start 1 --limit 100
+python analysis/analyze_patterns.py
+python output/build_case_study.py
+</pre>
+
+</section>
+
+
+<footer>
+AI Product Ops Intern Take-home · 100-app research pipeline
+</footer>
+
+</div>
+
+
+<script>
+const search = document.getElementById("search");
+const status = document.getElementById("status");
+const build = document.getElementById("build");
+
+function filterRows() {
+
+    const q = search.value.toLowerCase();
+    const statusValue = status.value;
+    const buildValue = build.value;
+
+    document
+        .querySelectorAll("#apps tbody tr")
+        .forEach(row => {
+
+            const text = row.innerText.toLowerCase();
+
+            const rowStatus = row.dataset.status;
+            const rowBuild = row.dataset.build;
+
+            const matchesSearch =
+                !q || text.includes(q);
+
+            const matchesStatus =
+                !statusValue ||
+                rowStatus === statusValue;
+
+            const matchesBuild =
+                !buildValue ||
+                rowBuild === buildValue;
+
+            row.style.display =
+                matchesSearch &&
+                matchesStatus &&
+                matchesBuild
+                    ? ""
+                    : "none";
+        });
+}
+
+search.addEventListener("input", filterRows);
+status.addEventListener("change", filterRows);
+build.addEventListener("change", filterRows);
+</script>
+
+</body>
+</html>
+ 

@@ -1,0 +1,504 @@
+{
+  "total_apps": 100,
+  "category_distribution": [
+    {
+      "value": "CRM and Sales",
+      "count": 10
+    },
+    {
+      "value": "Support and Helpdesk",
+      "count": 10
+    },
+    {
+      "value": "Communications and Messaging",
+      "count": 10
+    },
+    {
+      "value": "Marketing, Ads, Email and Social",
+      "count": 10
+    },
+    {
+      "value": "Ecommerce",
+      "count": 10
+    },
+    {
+      "value": "Data, SEO and Scraping",
+      "count": 10
+    },
+    {
+      "value": "Developer, Infra and Data platforms",
+      "count": 10
+    },
+    {
+      "value": "Productivity and Project Management",
+      "count": 10
+    },
+    {
+      "value": "Finance and Fintech",
+      "count": 10
+    },
+    {
+      "value": "AI, Research and Media-native",
+      "count": 10
+    }
+  ],
+  "authentication": [
+    {
+      "value": "OAuth2",
+      "count": 41
+    },
+    {
+      "value": "API key",
+      "count": 28
+    },
+    {
+      "value": "token",
+      "count": 25
+    },
+    {
+      "value": "Basic",
+      "count": 6
+    },
+    {
+      "value": "bearer",
+      "count": 1
+    },
+    {
+      "value": "password",
+      "count": 1
+    },
+    {
+      "value": "magic link",
+      "count": 1
+    },
+    {
+      "value": "OTP",
+      "count": 1
+    },
+    {
+      "value": "social login",
+      "count": 1
+    },
+    {
+      "value": "SSO",
+      "count": 1
+    },
+    {
+      "value": "application key",
+      "count": 1
+    },
+    {
+      "value": "API token",
+      "count": 1
+    },
+    {
+      "value": "OAuth2/token",
+      "count": 1
+    },
+    {
+      "value": "API key/token",
+      "count": 1
+    }
+  ],
+  "api_surface": [
+    {
+      "value": "REST",
+      "count": 80
+    },
+    {
+      "value": "SDK",
+      "count": 12
+    },
+    {
+      "value": "Webhooks",
+      "count": 11
+    },
+    {
+      "value": "GraphQL",
+      "count": 5
+    },
+    {
+      "value": "CLI",
+      "count": 4
+    },
+    {
+      "value": "MCP",
+      "count": 1
+    }
+  ],
+  "credential_access": [
+    {
+      "value": "Self-serve",
+      "count": 67
+    },
+    {
+      "value": "Unknown",
+      "count": 24
+    },
+    {
+      "value": "Paid-plan required",
+      "count": 4
+    },
+    {
+      "value": "Partner/Sales gated",
+      "count": 3
+    },
+    {
+      "value": "Admin approval",
+      "count": 1
+    },
+    {
+      "value": "Trial",
+      "count": 1
+    }
+  ],
+  "api_breadth": [
+    {
+      "value": "Broad",
+      "count": 51
+    },
+    {
+      "value": "Unknown",
+      "count": 31
+    },
+    {
+      "value": "Moderate",
+      "count": 16
+    },
+    {
+      "value": "Narrow",
+      "count": 2
+    }
+  ],
+  "mcp": [
+    {
+      "value": "Yes",
+      "count": 50
+    },
+    {
+      "value": "Unknown",
+      "count": 46
+    },
+    {
+      "value": "No",
+      "count": 4
+    }
+  ],
+  "buildability": [
+    {
+      "value": "Yes",
+      "count": 73
+    },
+    {
+      "value": "Unknown",
+      "count": 14
+    },
+    {
+      "value": "Partial",
+      "count": 12
+    },
+    {
+      "value": "No",
+      "count": 1
+    }
+  ],
+  "confidence": [
+    {
+      "value": "High",
+      "count": 47
+    },
+    {
+      "value": "Low",
+      "count": 27
+    },
+    {
+      "value": "Medium",
+      "count": 26
+    }
+  ],
+  "main_blockers": [
+    {
+      "value": "None",
+      "count": 63
+    },
+    {
+      "value": "Unknown",
+      "count": 14
+    },
+    {
+      "value": "Client registration plus user authorization; MCP authentication is OAuth and follows the user's CRM permissions.",
+      "count": 1
+    },
+    {
+      "value": "OAuth app registration requires contacting Copper; individual API keys can be generated from Copper settings.",
+      "count": 1
+    },
+    {
+      "value": "Authentication method not specified in the evidence",
+      "count": 1
+    },
+    {
+      "value": "Customer/admin authorization is required; distributed apps must use global OAuth.",
+      "count": 1
+    },
+    {
+      "value": "Requires an OAuth-capable MCP server or a supported static credential; a public MCP server with no authentication cannot be connected.",
+      "count": 1
+    },
+    {
+      "value": "Rate limit of 180 requests per minute per API key may restrict high‑volume usage",
+      "count": 1
+    },
+    {
+      "value": "API keys are created for machine users with fine-grained permissions; MCP uses the user's existing Plain account.",
+      "count": 1
+    },
+    {
+      "value": "Requires Meta business portfolio/WABA, phone-number setup, permissions, and access-token configuration.",
+      "count": 1
+    },
+    {
+      "value": "A developer token is required in addition to OAuth2; production access is controlled by developer-token access level.",
+      "count": 1
+    },
+    {
+      "value": "Most Marketing API products/permissions require explicit access approval.",
+      "count": 1
+    },
+    {
+      "value": "Legacy v1/v2 APIs scheduled to retire on June 30, 2024",
+      "count": 1
+    },
+    {
+      "value": "Lack of clear authentication method and limited documentation on API endpoints",
+      "count": 1
+    },
+    {
+      "value": "Merchant authorization and access scopes; some public-app review/onboarding requirements apply.",
+      "count": 1
+    }
+  ],
+  "easy_wins": {
+    "count": 63,
+    "apps": [
+      "Salesforce",
+      "HubSpot",
+      "Pipedrive",
+      "Attio",
+      "Twenty",
+      "Podio",
+      "Zoho CRM",
+      "Intercom",
+      "Front",
+      "LiveAgent",
+      "Plain",
+      "Gorgias",
+      "Slack",
+      "Twilio",
+      "Lark (Larksuite)",
+      "Pumble",
+      "Telegram",
+      "Aircall",
+      "Vonage",
+      "Meta Ads",
+      "Mailchimp",
+      "systeme.io",
+      "Shopify",
+      "WooCommerce",
+      "BigCommerce",
+      "Squarespace",
+      "Gumroad",
+      "DataForSEO",
+      "SE Ranking",
+      "MrScraper",
+      "Apify",
+      "Firecrawl",
+      "Clay",
+      "GitHub",
+      "Vercel",
+      "Netlify",
+      "Cloudflare",
+      "Supabase",
+      "Neo4j",
+      "MongoDB Atlas",
+      "Datadog",
+      "Sentry",
+      "Notion",
+      "Airtable",
+      "Linear",
+      "Jira",
+      "Asana",
+      "Monday.com",
+      "ClickUp",
+      "Coda",
+      "Smartsheet",
+      "Stripe",
+      "Plaid",
+      "Binance",
+      "iPayX",
+      "QuickBooks",
+      "Xero",
+      "Ramp",
+      "Fathom",
+      "Consensus",
+      "Reducto",
+      "higgsfield",
+      "YouTube Transcript"
+    ]
+  },
+  "outreach_candidates": {
+    "count": 14,
+    "apps": [
+      "Copper",
+      "DealCloud",
+      "Zendesk",
+      "Pylon",
+      "WhatsApp Business",
+      "Google Ads",
+      "LinkedIn Ads",
+      "Pinterest",
+      "Ahrefs",
+      "Brex",
+      "PitchBook",
+      "NotebookLM",
+      "Otter AI",
+      "Mermaid CLI"
+    ]
+  },
+  "unknown_rates": {
+    "auth_methods": {
+      "unknown_count": 20,
+      "unknown_percent": 20.0
+    },
+    "self_serve_or_gated": {
+      "unknown_count": 24,
+      "unknown_percent": 24.0
+    },
+    "api_surface": {
+      "unknown_count": 16,
+      "unknown_percent": 16.0
+    },
+    "api_breadth": {
+      "unknown_count": 31,
+      "unknown_percent": 31.0
+    },
+    "mcp": {
+      "unknown_count": 46,
+      "unknown_percent": 46.0
+    },
+    "buildability": {
+      "unknown_count": 14,
+      "unknown_percent": 14.0
+    },
+    "main_blocker": {
+      "unknown_count": 14,
+      "unknown_percent": 14.0
+    },
+    "evidence_url": {
+      "unknown_count": 7,
+      "unknown_percent": 7.0
+    }
+  },
+  "verification": {
+    "Unverified": 80,
+    "Verified": 19,
+    "Unresolved": 1
+  },
+  "category_buildability": {
+    "CRM and Sales": {
+      "Yes": 8,
+      "Partial": 2
+    },
+    "Support and Helpdesk": {
+      "Partial": 2,
+      "Yes": 7,
+      "Unknown": 1
+    },
+    "Communications and Messaging": {
+      "Yes": 9,
+      "Partial": 1
+    },
+    "Marketing, Ads, Email and Social": {
+      "Partial": 3,
+      "Yes": 4,
+      "Unknown": 3
+    },
+    "Ecommerce": {
+      "Yes": 6,
+      "Unknown": 4
+    },
+    "Data, SEO and Scraping": {
+      "Yes": 6,
+      "Partial": 1,
+      "Unknown": 3
+    },
+    "Developer, Infra and Data platforms": {
+      "Yes": 9,
+      "Unknown": 1
+    },
+    "Productivity and Project Management": {
+      "Yes": 9,
+      "Unknown": 1
+    },
+    "Finance and Fintech": {
+      "Yes": 8,
+      "Unknown": 1,
+      "Partial": 1
+    },
+    "AI, Research and Media-native": {
+      "Partial": 2,
+      "Yes": 7,
+      "No": 1
+    }
+  },
+  "category_access": {
+    "CRM and Sales": {
+      "Self-serve": 7,
+      "Unknown": 2,
+      "Partner/Sales gated": 1
+    },
+    "Support and Helpdesk": {
+      "Admin approval": 1,
+      "Self-serve": 5,
+      "Unknown": 4
+    },
+    "Communications and Messaging": {
+      "Self-serve": 8,
+      "Unknown": 2
+    },
+    "Marketing, Ads, Email and Social": {
+      "Self-serve": 5,
+      "Partner/Sales gated": 1,
+      "Unknown": 3,
+      "Trial": 1
+    },
+    "Ecommerce": {
+      "Self-serve": 5,
+      "Unknown": 5
+    },
+    "Data, SEO and Scraping": {
+      "Self-serve": 6,
+      "Paid-plan required": 1,
+      "Unknown": 3
+    },
+    "Developer, Infra and Data platforms": {
+      "Self-serve": 9,
+      "Unknown": 1
+    },
+    "Productivity and Project Management": {
+      "Self-serve": 9,
+      "Unknown": 1
+    },
+    "Finance and Fintech": {
+      "Self-serve": 7,
+      "Unknown": 1,
+      "Paid-plan required": 2
+    },
+    "AI, Research and Media-native": {
+      "Paid-plan required": 1,
+      "Partner/Sales gated": 1,
+      "Self-serve": 6,
+      "Unknown": 2
+    }
+  }
+}
